@@ -18,7 +18,6 @@ h1 {
   color: #333;
 }
 
-/* Video container */
 .video-container {
   position: relative;
   background: #000;
@@ -29,7 +28,6 @@ h1 {
   max-width: 100%;
 }
 
-/* Video element */
 #video {
   width: 100%;
   height: auto;
@@ -37,7 +35,36 @@ h1 {
   cursor: pointer;
 }
 
-/* Controls container */
+.loading-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
 .controls {
   position: absolute;
   bottom: 0;
@@ -58,14 +85,12 @@ h1 {
   opacity: 0.3;
 }
 
-/* Control buttons container */
 .control-buttons-container {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-/* Control buttons, button styles */
 button, .control-button {
   background: transparent;
   border: none;
@@ -95,19 +120,16 @@ button:active {
   border-radius: 50%;
 }
 
-/* Icon styles */
 svg {
   fill: white;
   width: 24px;
   height: 24px;
 }
-
-/* Hide pause icon by default */
 .pause-icon {
   display: none;
 }
 
-/* Volume control */
+
 .volume-control {
   display: inline-flex;
   align-items: center;
@@ -116,14 +138,12 @@ svg {
   position: relative;
 }
 
-/* Volume slider container */
 .volume-slider-container {
   display: flex;
   align-items: center;
   width: 80px;
 }
 
-/* Volume slider */
 #volume-slider {
   width: 100%;
   height: 5px;
@@ -154,7 +174,6 @@ svg {
   border: none;
 }
 
-/* Progress bar styles */
 .progress-container {
   flex: 1;
   display: flex;
@@ -194,7 +213,6 @@ svg {
   text-align: center;
 }
 
-/* Quality control styles */
 .quality-control {
   position: relative;
   display: inline-block;
@@ -226,7 +244,6 @@ svg {
   display: none;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .controls {
     padding: 5px;
@@ -261,37 +278,4 @@ svg {
   #volume-slider {
     width: 40px;
   }
-}
-
-.loading-indicator {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-}
-
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top: 4px solid #ffffff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.hidden {
-  display: none;
 }

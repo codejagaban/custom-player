@@ -2,37 +2,32 @@ import Hls from "hls.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   const video = document.getElementById("video") as HTMLVideoElement;
-  const playPauseButton = document.getElementById(
-    "play-pause"
-  ) as HTMLButtonElement;
+  const playPauseButton = document.getElementById("play-pause") as HTMLButtonElement;
   const volumeButton = document.getElementById("volume") as HTMLButtonElement;
   const rewindButton = document.getElementById("rewind") as HTMLButtonElement;
-  const fastForwardButton = document.getElementById(
-    "fast-forward"
-  ) as HTMLButtonElement;
+  const fastForwardButton = document.getElementById("fast-forward") as HTMLButtonElement;
   const muteIcon = document.querySelector(".mute-icon") as HTMLElement;
-  const volumeHighIcon = document.querySelector(
-    ".volume-high-icon"
-  ) as HTMLElement;
+  const volumeHighIcon = document.querySelector(".volume-high-icon") as HTMLElement;
   const volumeIcon = document.querySelector(".volume-icon") as HTMLElement;
   const playIcon = document.querySelector(".play-icon") as HTMLElement;
   const pauseIcon = document.querySelector(".pause-icon") as HTMLElement;
-  const volumeSlider = document.getElementById(
-    "volume-slider"
-  ) as HTMLInputElement;
+  const volumeSlider = document.getElementById("volume-slider") as HTMLInputElement;
   const progressBar = document.querySelector(".progress-bar") as HTMLElement;
-  const progressFilled = document.querySelector(
-    ".progress-filled"
-  ) as HTMLElement;
+  const progressFilled = document.querySelector(".progress-filled") as HTMLElement;
   const currentTimeElement = document.getElementById("current-time");
   const durationElement = document.getElementById("duration");
-  const qualityButton = document.getElementById(
-    "quality-button"
-  ) as HTMLButtonElement;
+  const qualityButton = document.getElementById("quality-button") as HTMLButtonElement;
   const qualityMenu = document.querySelector(".quality-menu") as HTMLElement;
+  const videoContainer = document.querySelector(".video-container") as HTMLElement;
+  const controls = document.querySelector(".controls") as HTMLElement;
+  const loadingIndicator = document.querySelector(".loading-indicator") as HTMLElement;
+
   let isMuted = false;
   let isPlaying = false;
   let hlsInstance: Hls | null = null;
+
+
+
 
   // Helper function to update play/pause UI
   function updatePlayPauseUI(playing: boolean): void {
@@ -41,28 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
     pauseIcon.style.display = playing ? "block" : "none";
   }
 
-  // Helper function to update volume icon UI
-  // function updateVolumeUI(): void {
-  //   if (video.muted || video.volume === 0) {
-  //     isMuted = true;
-  //     muteIcon.style.display = "block";
-  //     volumeHighIcon.style.display = "none";
-  //     volumeIcon.style.display = "none";
-  //     volumeSlider.value = "0";
-  //   } else if (video.volume < 0.5) {
-  //     isMuted = false;
-  //     muteIcon.style.display = "none";
-  //     volumeHighIcon.style.display = "none";
-  //     volumeIcon.style.display = "block";
-  //     volumeSlider.value = String(video.volume);
-  //   } else {
-  //     isMuted = false;
-  //     muteIcon.style.display = "none";
-  //     volumeHighIcon.style.display = "block";
-  //     volumeIcon.style.display = "none";
-  //     volumeSlider.value = String(video.volume);
-  //   }
-  // }
 
   // Play/pause functionality
   playPauseButton.addEventListener("click", function () {
@@ -74,6 +47,27 @@ document.addEventListener("DOMContentLoaded", function () {
       updatePlayPauseUI(false);
     }
   });
+  // show video controls on mouse move
+  videoContainer.addEventListener("mousemove", showControls);
+  videoContainer.addEventListener("mouseleave", hideControls);
+
+function showControls() {
+  controls.style.opacity = "1";
+}
+
+function hideControls() {
+  if (!video.paused) {
+    controls.style.opacity = "0";
+  }
+}
+//  Show loading indicator when video is loading
+video.addEventListener("waiting", function() {
+  loadingIndicator.classList.remove("hidden");
+});
+
+video.addEventListener("playing", function() {
+  loadingIndicator.classList.add("hidden");
+});
 
   // Volume button functionality
   volumeButton.addEventListener("click", function () {
@@ -486,30 +480,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-
-  const videoContainer = document.querySelector(".video-container") as HTMLElement;
-const controls = document.querySelector(".controls") as HTMLElement;
-
-videoContainer.addEventListener("mousemove", showControls);
-videoContainer.addEventListener("mouseleave", hideControls);
-
-function showControls() {
-  controls.style.opacity = "1";
-}
-
-function hideControls() {
-  if (!video.paused) {
-    controls.style.opacity = "0";
-  }
-}
-  
-  const loadingIndicator = document.querySelector(".loading-indicator") as HTMLElement;
-
-video.addEventListener("waiting", function() {
-  loadingIndicator.classList.remove("hidden");
-});
-
-video.addEventListener("playing", function() {
-  loadingIndicator.classList.add("hidden");
-});
 });
