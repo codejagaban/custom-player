@@ -137,6 +137,12 @@ svg {
   width: 80px;
   position: relative;
 }
+.volume-high-icon {
+  display: block;
+}
+.volume-icon, .mute-icon{
+  display: none;
+}
 
 .volume-slider-container {
   display: flex;
