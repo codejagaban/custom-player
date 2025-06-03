@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (currentTimeElement) {
       currentTimeElement.textContent = "0:00";
     }
-    if (durationElement) {
+    if (!isNaN(video.duration) && durationElement) {
       durationElement.textContent = formatTime(video.duration);
     }
   });
@@ -132,7 +132,6 @@ document.addEventListener("DOMContentLoaded", function () {
   function toggleMute(mute: boolean): void {
     if (mute) {
       // Muting
-      video.dataset.previousVolume = volumeSlider.value;
       video.muted = true;
     } else {
       // Unmuting
